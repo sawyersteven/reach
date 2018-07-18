@@ -1,2 +1,2 @@
-# reach
-Easy to read cli application to follow http requests and connection
+# Reach
+Easily check URL status from a terminal
