@@ -76,11 +76,11 @@ var trace = &httptrace.ClientTrace{
 func main() {
 	args := parseArgs()
 
-	if opts.Help {
-		printHelp()
-		os.Exit(0)
-	} else if opts.Version {
+	if opts.Version {
 		printVersion()
+		os.Exit(0)
+	} else if opts.Help || len(args) < 1 {
+		printHelp()
 		os.Exit(0)
 	}
 
@@ -92,7 +92,7 @@ func parseArgs() []string {
 
 	args, err := p.Parse()
 
-	if err != nil || len(args) < 1 {
+	if err != nil {
 		printHelp()
 		os.Exit(0)
 	}
