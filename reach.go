@@ -20,6 +20,7 @@ var opts struct {
 	Timeout      int  `long:"timeout" default:"15" description:"HTTP request timeout in seconds"`
 	MaxRedirects int  `long:"maxredirects" default:"20" description:"Maximum redirects to follow"`
 	Help         bool `long:"help" description:"Display usage instructions"`
+	Version      bool `long:"version" description:"Display version and license information"`
 }
 
 var trace = &httptrace.ClientTrace{
@@ -74,6 +75,14 @@ var trace = &httptrace.ClientTrace{
 
 func main() {
 	args := parseArgs()
+
+	if opts.Help {
+		printHelp()
+		os.Exit(0)
+	} else if opts.Version {
+		printVersion()
+		os.Exit(0)
+	}
 
 	getURL(args[0])
 }
@@ -221,5 +230,17 @@ Options:
   -c, --nocolor               Print output without colors
   --maxredirects=REDIRECTS    Maximum redirects to follow [default: 20]
   --timeout=SECONDS           HTTP request timeout in seconds [default: 15]
-  --help                      Display this help message`)
+  --help                      Display this help message
+  --version                   Display version and license info
+  `)
+}
+
+func printVersion() {
+	fmt.Println(`reach 0.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Steven Sawyer.`)
 }
